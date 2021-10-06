@@ -1,0 +1,41 @@
+pipeline {
+    agent {
+        docker {
+            image 'anelisemaia/ruby-web-agent'
+            args '--network rocklov-network'
+        }
+    }
+
+    stages {
+        stage ('Prep'){
+            steps {
+                sh 'cd web && bundle install' 
+            }
+        }
+        stage('testing') {
+            steps {
+                sh 'cd web && rake local_seeds'
+            }
+        }
+        stage('UAT'){
+            steps{
+                echo 'Aguardando testes de aceitação'
+                input message: 'Podemos ir para prod?'
+            }            
+            }
+        stage('Prod'){
+            steps{
+                echo 'Webb app pronta para prod'
+                
+            }            
+            }
+        }
+
+    post {
+        always {
+             allure includeProperties: false, jdk: '', results: [[path: 'web/logs']]
+        }
+    }    
+}
+    
+

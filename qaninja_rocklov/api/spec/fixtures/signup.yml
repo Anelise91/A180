@@ -1,0 +1,43 @@
+---
+- title: senha incorreta
+  payload:
+    name: Joao da Silva
+    email: joao@ig.com.br
+    password: '123456'
+  code: 409
+  error: Email already exists :(
+- title: email incorreto
+  payload:
+    name: Joao da Silva
+    email: joao&ig.com.br
+    password: pwd123
+  code: 412
+  error: wrong email
+- title: nome incorreto
+  payload:
+    name: J
+    email: joao@ig.com.br
+    password: pwd123
+  code: 409
+  error: Email already exists :(
+- title: nome em branco ou sem nome
+  payload:
+    name: ''
+    email: joao@ig.com.br
+    password: pwd123
+  code: 412
+  error: required name
+- title: email em branco ou sem email
+  payload:
+    name: Joao da Silva
+    email: ''
+    password: pwd123
+  code: 412
+  error: required email
+- title: senha em branco ou sem senha
+  payload:
+    name: Joao da Silva
+    email: joao@ig.com.br
+    password: ''
+  code: 412
+  error: required password
